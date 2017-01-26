@@ -68,12 +68,23 @@ public class Kmeans {
 
     // recalculate the cluster means for cluster m
     public void updateClusterCenter(int m) {
-        // find the average x and y values for all data points in this cluster, that is those data points whose type is m
-        // Here m is the cluster number of the cluster type.  All data points in this cluster will have a type equal to m
-        //---------
-        // this method must set cluster[m].x = average of all the data[i].x values for 
-        //    the data points in this cluster, i.e. when data[i].type == m
-        // this method must do the same for cluster[m].y
+        
+        int count = 0;
+        int xSum = 0;
+        int ySum = 0;
+        
+        for (int i = 0; i < data.length; i++) {                      
+            if (data[i].type == m) {
+                count++;
+                xSum += data[i].x;
+                ySum += data[i].y;
+            }
+        }
+        
+        cluster[m].x = xSum / count;
+        cluster[m].y = ySum / count;
+        
+
        System.out.println("----  Calculating new location for cluster ----" + m);
         System.out.println("   This cluster is now at x=" + cluster[m].x + " and y= " + cluster[m].y);
         for (int d = 0; d < data.length; d++) {
